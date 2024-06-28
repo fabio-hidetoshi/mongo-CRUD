@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { authorController } from "./author/js";
 
 const booksSchema = new mongoose.Schema(
   {
@@ -6,6 +7,8 @@ const booksSchema = new mongoose.Schema(
     titulo: { type: String, required: true },
     tipo: { type: String },
     preco: { type: Number },
+    paginas: { type: Number },
+    autor: authorController,
   },
   { versionKey: false }
 );
