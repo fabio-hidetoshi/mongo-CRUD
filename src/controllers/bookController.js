@@ -1,3 +1,4 @@
+import { author, authorSchema } from "../models/Author.js";
 import book from "../models/books.js";
 
 class BookController {
@@ -24,11 +25,22 @@ class BookController {
   }
 
   static async registerBook(req, res) {
+    const newBook = req.body;
     try {
-      const newBook = await book.create(req.body);
+      const authorFound = await author.findById(newBook.author);
+
+      if (!authorFound) {
+        return res.status(404).json({ message: "Autor não encontrado" });
+      }
+
+      const bookCompleted = {
+        ...newBook,
+        authorSchema: { ...authorFound._doc },
+      };
+      const bookCreated = await book.create(bookCompleted);
       res
         .status(201)
-        .json({ message: "Livro criado com sucesso!", book: newBook });
+        .json({ message: "Livro criado com sucesso!", book: bookCreated });
     } catch (error) {
       res
         .status(500)

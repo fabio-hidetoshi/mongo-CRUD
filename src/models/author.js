@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const authorController = new mongoose.Schema(
+const authorSchema = new mongoose.Schema(
   {
-    id: { type: mongoose.Schema.ObjectId },
-    name: { type: String, require: true },
+    id: { type: mongoose.Schema.Types.ObjectId },
+    name: { type: String, required: true },
     nacionalidade: { type: String },
   },
   { versionKey: false }
 );
 
-const author = mongoose.model("autores", authorController);
+const author = mongoose.model("autores", authorSchema);
 
-export default { author, authorController };
+export { author, authorSchema };
