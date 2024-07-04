@@ -9,6 +9,6 @@ const authorSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const author = mongoose.model("autores", authorSchema);
+const author = mongoose.model("Authores", authorSchema);
 
 export { author, authorSchema };
