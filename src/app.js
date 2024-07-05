@@ -1,18 +1,24 @@
 import express from "express";
-import connectDataBase from "./config/dbConnect.js";
+import conectaNaDatabase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 
-const connect = await connectDataBase();
+const conexao = await conectaNaDatabase();
 
-connect.on("erro", (erro) => {
-  console.log("erro na conexão", erro);
+conexao.on("error", (erro) => {
+  console.error("erro de conexão", erro);
 });
 
-connect.once("open", () => {
-  console.log("Conexão feita com sucesso");
+conexao.once("open", () => {
+  console.log("Conexao com o banco feita com sucesso");
 });
 
 const app = express();
 routes(app);
+
+app.delete("/livros/:id", (req, res) => {
+  const index = buscaLivro(req.params.id);
+  livros.splice(index, 1);
+  res.status(200).send("livro removido com sucesso");
+});
 
 export default app;
